@@ -1,0 +1,68 @@
+#include <iostream>
+using namespace std;
+
+
+bool esValida(string jugada) {
+	return (jugada == "()" || jugada == "[]" || jugada == "8<");
+}
+
+string leerJugada(int jugador) {
+	string jugada;
+	
+	do {
+		cout << "Jugador " << jugador << " ingrese su jugada:\n";
+		cout << "Piedra = ()\n";
+		cout << "Papel  = []\n";
+		cout << "Tijera = 8<\n";
+		cin >> jugada;
+		
+		if (!esValida(jugada))
+			cout << "Opcion invalida. Intente nuevamente.\n\n";
+		
+	} while (!esValida(jugada));
+	
+	return jugada;
+}
+
+void mostrarJugada(int jugador, string jugada) {
+	cout << "Jugador " << jugador << " eligio: ";
+	
+	if (jugada == "()")
+		cout << "Piedra";
+	else if (jugada == "[]")
+		cout << "Papel";
+	else
+		cout << "Tijera";
+	
+	cout << endl;
+}
+
+// Determina el ganador
+void determinarGanador(string j1, string j2) {
+	cout << "\nResultado: ";
+	
+	if (j1 == j2)
+		cout << "Empate";
+	else if ((j1 == "()" && j2 == "8<") ||
+		(j1 == "[]" && j2 == "()") ||
+		(j1 == "8<" && j2 == "[]"))
+		cout << "Gana Jugador 1";
+	else
+		cout << "Gana Jugador 2";
+}
+
+int main() {
+	string jugador1, jugador2;
+	
+	jugador1 = leerJugada(1);
+	jugador2 = leerJugada(2);
+	
+	cout << endl;
+	
+	mostrarJugada(1, jugador1);
+	mostrarJugada(2, jugador2);
+	
+	determinarGanador(jugador1, jugador2);
+	
+	return 0;
+}
